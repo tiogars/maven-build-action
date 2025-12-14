@@ -2,8 +2,6 @@
 
 GitHub action
 
-
-
 ## Usage
 
 ```yml
@@ -50,3 +48,25 @@ To bump the patch version:
 If no tags exist, it will create the first tag as `v0.0.1`.
 
 **Note:** The workflow expects tags in the format `vMAJOR.MINOR.PATCH` (e.g., `v1.0.0`).
+
+## Note
+
+https://github.com/actions/setup-java/blob/v5/docs/advanced-usage.md#publishing-using-apache-maven
+
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <servers>
+    <server>
+      <id>github</id>
+      <username>${env.GITHUB_ACTOR}</username>
+      <password>${env.GITHUB_TOKEN}</password>
+    </server>
+    <server>
+      <id>gpg.passphrase</id>
+      <passphrase>${env.GPG_PASSPHRASE}</passphrase>
+    </server>
+  </servers>
+</settings>
+```
