@@ -2,8 +2,21 @@ name: 'Build with Apache Maven'
 
 description: Build with Apache Maven
 
+inputs:
+  setup-java-server-id:
+    description: 'github'
+    required: true
+  setup-java-server-username:
+    description: 'github.actor'
+    required: true
+  setup-java-server-password:
+    description: 'secrets.GITHUB_TOKEN'
+    required: true
+    
 runs:
+
   using: 'composite'
+
   steps:
     - uses: actions/checkout@v5
 
@@ -12,9 +25,9 @@ runs:
         java-version: '21'
         distribution: 'temurin'
         cache: 'maven'
-        server-id: github
-        server-username: ${{ github.actor }}
-        server-password: ${{ secrets.GITHUB_TOKEN }}
+        server-id: ${{ inputs.setup-java-server-id }}
+        server-username: ${{ inputs.setup-java-server-username }}
+        server-password: ${{ inputs.setup-java-server-password }}
 
     - run: mvn clean install
 
