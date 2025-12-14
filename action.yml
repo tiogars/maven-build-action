@@ -26,9 +26,9 @@ runs:
         java-version: '21'
         distribution: 'temurin'
         cache: 'maven'
-        # server-id: ${{ inputs.setup-java-server-id }}
-        # server-username: ${{ inputs.setup-java-server-username }}
-        # server-password: ${{ inputs.setup-java-server-password }}
+        server-id: ${{ inputs.setup-java-server-id }}
+        server-username: ${{ inputs.setup-java-server-username }}
+        server-password: ${{ inputs.setup-java-server-password }}
 
     - run: mvn package # -s /home/runner/.m2/settings.xml
       shell: bash
