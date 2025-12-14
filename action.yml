@@ -30,5 +30,7 @@ runs:
         server-password: ${{ inputs.setup-java-server-password }}
 
     - run: mvn clean install
+      shell: bash
 
     - run: mvn test
+      shell: bash
