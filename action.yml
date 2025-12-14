@@ -30,5 +30,5 @@ runs:
         server-username: ${{ inputs.setup-java-server-username }}
         server-password: ${{ inputs.setup-java-server-password }}
 
-    - run: mvn package
+    - run: mvn package -s /home/runner/.m2/settings.xml
       shell: bash
