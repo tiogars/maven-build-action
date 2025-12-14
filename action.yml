@@ -16,4 +16,6 @@ runs:
         server-username: ${{ github.actor }}
         server-password: ${{ secrets.GITHUB_TOKEN }}
 
-    - run: mvn -B package --file pom.xml
+    - run: mvn clean install
+
+    - run: mvn test
