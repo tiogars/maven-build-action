@@ -32,3 +32,5 @@ runs:
 
     - run: mvn package # -s /home/runner/.m2/settings.xml
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.setup-java-server-password }}
