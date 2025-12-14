@@ -11,6 +11,9 @@ runs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        cache: maven
+        cache: 'maven'
+        server-id: github
+        server-username: ${{ github.actor }}
+        server-password: ${{ secrets.GITHUB_TOKEN }}
 
     - run: mvn -B package --file pom.xml
