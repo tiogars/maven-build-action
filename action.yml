@@ -1,0 +1,16 @@
+name: 'Build with Apache Maven'
+
+description: Build with Apache Maven
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v5
+
+    - uses: actions/setup-java@v5
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+
+    - run: mvn -B package --file pom.xml
