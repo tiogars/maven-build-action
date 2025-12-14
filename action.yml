@@ -3,18 +3,6 @@ name: 'Build with Apache Maven'
 description: Build with Apache Maven
 
 inputs:
-  setup-java-server-id:
-    description: 'ID of the distributionManagement repository in the pom.xml
-       file. Default is `github`'
-    required: false
-  setup-java-server-username:
-    description: 'Environment variable name for the username for authentication
-       to the Apache Maven repository. Default is $GITHUB_ACTOR'
-    required: false
-  setup-java-server-password:
-    description: 'Environment variable name for password or token for
-       authentication to the Apache Maven repository. Default is $GITHUB_TOKEN'
-    required: false
   setup-java-token:
     description: The token used to authenticate when fetching version manifests hosted on github.com, such as for the Microsoft Build of OpenJDK. When running this action on github.com, the default value is sufficient. When running on GHES, you can pass a personal access token for github.com if you are experiencing rate limiting.
     default: ${{ github.server_url == 'https://github.com' && github.token || '' }}
@@ -30,11 +18,8 @@ runs:
         java-version: '21'
         distribution: 'temurin'
         cache: 'maven'
-        server-id: ${{ inputs.setup-java-server-id }}
-        server-username: ${{ inputs.setup-java-server-username }}
-        server-password: ${{ inputs.setup-java-server-password }}
 
-    - run: mvn package # -s /home/runner/.m2/settings.xml
+    - run: mvn package
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.setup-java-server-password }}
+        GITHUB_TOKEN: ${{ inputs.setup-java-token }}
