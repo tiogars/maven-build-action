@@ -1,2 +1,28 @@
 # maven-build-action
 GitHub action
+
+## Usage
+
+```yml
+name: Build develop
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - uses: tiogars/maven-build-action@v1
+```
