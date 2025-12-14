@@ -27,8 +27,8 @@ jobs:
           # Fetch all tags
           git fetch --tags
           
-          # Get the latest tag, or use v0.0.0 if no tags exist
-          LATEST_TAG=$(git tag -l "v*.*.*" | sort -V | tail -n 1)
+          # Get the latest tag using Git's built-in version sorting
+          LATEST_TAG=$(git tag -l "v*.*.*" --sort=-version:refname | head -n 1)
           
           if [ -z "$LATEST_TAG" ]; then
             echo "No existing tags found. Starting from v0.0.0"
@@ -42,6 +42,19 @@ jobs:
           MAJOR=$(echo $VERSION | cut -d. -f1)
           MINOR=$(echo $VERSION | cut -d. -f2)
           PATCH=$(echo $VERSION | cut -d. -f3)
+          
+          # Validate semantic versioning format
+          if [ -z "$MAJOR" ] || [ -z "$MINOR" ] || [ -z "$PATCH" ]; then
+            echo "Error: Invalid semantic version format: $LATEST_TAG"
+            echo "Expected format: vMAJOR.MINOR.PATCH (e.g., v1.0.0)"
+            exit 1
+          fi
+          
+          # Validate PATCH is numeric
+          if ! [[ "$PATCH" =~ ^[0-9]+$ ]]; then
+            echo "Error: PATCH version is not numeric: $PATCH"
+            exit 1
+          fi
           
           # Bump patch version
           NEW_PATCH=$((PATCH + 1))
