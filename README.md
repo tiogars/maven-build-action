@@ -5,7 +5,7 @@ GitHub action
 ## Usage
 
 ```yml
-name: Build develop
+name: Build
 
 on:
   push:
@@ -16,19 +16,18 @@ on:
       - main
   workflow_dispatch:
 
+  permissions:
+    contents: read
+    packages: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      packages: read
-
     steps:
       - uses: tiogars/maven-build-action@v1
         with:
-          setup-java-server-username: ${{ github.actor }}
-          setup-java-server-password: ${{ secrets.GITHUB_TOKEN }}
+          setup-java-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Bump Patch Version
